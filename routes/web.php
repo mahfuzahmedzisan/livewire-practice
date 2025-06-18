@@ -8,6 +8,7 @@ use Livewire\Volt\Volt;
 // })->name('home');
 
 Volt::route('/', 'frontend.home')->name('home');
+Volt::route('/todo', 'frontend.todo')->name('todo');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
