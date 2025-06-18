@@ -5,10 +5,10 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 
 new #[Layout('components.layouts.frontend')] class extends Component {
-    public $success = null; // For flash messages
-    public $todos = []; // Original todos
-    public ?int $id = null; // Track the ID being edited (null for new todos)
-    public string $searchQuery = ''; // Property to hold the search query
+    public $success = null;
+    public $todos = [];
+    public ?int $id = null;
+    public string $searchQuery = '';
 
     #[Validate('required|string|max:255')]
     public string $title = '';
@@ -61,7 +61,6 @@ new #[Layout('components.layouts.frontend')] class extends Component {
         $this->resetForm();
     }
 
-    // FIX 1: Use ID instead of index
     public function editTodo($id)
     {
         foreach ($this->todos as $todo) {
@@ -74,14 +73,12 @@ new #[Layout('components.layouts.frontend')] class extends Component {
         }
     }
 
-    // FIX 1: Use ID instead of index
     public function deleteTodo($id)
     {
         $this->todos = array_filter($this->todos, fn($todo) => $todo['id'] !== $id);
         session()->flash('success', 'Todo deleted successfully!');
     }
 
-    // FIX 2: Improved case-insensitive search
     public function getFilteredTodosProperty()
     {
         if (empty($this->searchQuery)) {
